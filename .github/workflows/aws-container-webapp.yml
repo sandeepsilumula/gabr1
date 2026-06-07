@@ -1,5 +1,6 @@
-name: project2
-on: push
+name: Parallel Workflow
+on: [push, workflow_dispatch]
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -14,8 +15,8 @@ jobs:
         run: npm install
       - name: Build Application
         run: npm run build
+
   test:
-    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -28,8 +29,8 @@ jobs:
         run: npm install
       - name: Run Tests
         run: npm test
+
   deploy:
-    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Deploy Application
