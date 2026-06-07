@@ -1,4 +1,4 @@
-name: Parallel Workflow
+name: Sequential Workflow
 on: [push, workflow_dispatch]
 
 jobs:
@@ -17,6 +17,7 @@ jobs:
         run: npm run build
 
   test:
+    needs: build
     runs-on: ubuntu-latest
     steps:
       - name: Checkout Code
@@ -31,6 +32,7 @@ jobs:
         run: npm test
 
   deploy:
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - name: Deploy Application
