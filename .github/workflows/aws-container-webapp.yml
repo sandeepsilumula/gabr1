@@ -1,9 +1,5 @@
 name: Sequential Workflow
-on:
-  push:
-    branches:
-      - main
-      - dev-1
+on: [push, workflow_dispatch]
 
 jobs:
   build:
@@ -42,4 +38,9 @@ jobs:
       - name: Deploy Application
         run: echo "Deploying to production server..."
 
-
+  info:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Output of the Job
+        run: echo "${{ toJson(github) }}"
